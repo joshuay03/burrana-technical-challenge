@@ -14,13 +14,12 @@ class App {
   constructor() {
     this.express = express();
     this.configureApp();
-    this.startDBServer();
     // Register created express server in routing-controllers
     useExpressServer(this.express, {
       cors: true,
       controllers: [`${__dirname}/controllers/*.ts`],
     });
-    this.express.listen(this.port);
+    this.startApp();
   }
 
   /**
@@ -33,11 +32,21 @@ class App {
 
   /**
    * Method to start MongoDB in-memory instance
+   * and express server
    */
-  private async startDBServer(): Promise<void> {
+  private async startApp(): Promise<void> {
+    console.log('Starting App...');
+    console.log('Creating DB instance...');
     const mongoServer = await MongoMemoryServer.create();
     const uri = await mongoServer.getUri();
-    mongoose.connect(uri);
+    mongoose
+      .connect(uri)
+      .then(() => {
+        console.log('Connected to DB!');
+        this.express.listen(this.port, () => {
+          console.log(`App is is listening on port ${this.port}...`);
+        });
+      })
     // Close instance on SIGTERM
     process.on('SIGTERM', () => {
       mongoose.connection.close(false);
