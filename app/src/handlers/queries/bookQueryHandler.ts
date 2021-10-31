@@ -18,6 +18,7 @@ class BookQueryHandler {
       data: null,
     };
 
+    // Get all Books in line with query parameters
     if (params.sortBy === 'name') {
       if (params.asc) {
         result.data = await Book.find({}).sort({ 'name': 1 });

@@ -1,4 +1,5 @@
 import { GetBook } from '../interfaces/IBook';
+
 /**
  * Generic interface for query result
  */

@@ -1,6 +1,6 @@
 /**
- * Method to transform books to consist of only the
- * required fields
+ * Method to transform books to consist of
+ * only the required fields
  * @param books
  * @returns
  */
