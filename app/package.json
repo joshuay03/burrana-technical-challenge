@@ -5,7 +5,8 @@
     "version": "0.1.0",
     "license": "UNLICENSED",
     "scripts": {
-        "dev": "ts-node-dev src/index.ts --"
+        "dev": "ts-node-dev src/index.ts --",
+        "test": "jest"
     },
     "dependencies": {
         "@types/cookie-parser": "^1.4.2",
@@ -24,6 +25,7 @@
     },
     "devDependencies": {
         "@types/cors": "^2.8.9",
+        "@types/jest": "^27.0.2",
         "babel-cli": "^6.26.0",
         "babel-preset-env": "^1.7.0",
         "mongodb-memory-server": "^7.5.1",
