@@ -85,6 +85,34 @@ describe("POST /book", () => {
       .toEqual({ Error: 'Valid Author of Book required.' });
   });
 
+  it('Create new book with empty name', async () => {
+    const result = await request(baseApiUrl)
+      .post('/book')
+      .send({
+        name: '',
+        author: testBooks.book1.author,
+        description: testBooks.book1.description,
+      })
+      .set('Accept', 'application/json');
+    expect(result.statusCode).toEqual(400);
+    expect(result.body)
+      .toEqual({ Error: 'Valid Name of Book required.' });
+  });
+
+  it('Create new book with empty author', async () => {
+    const result = await request(baseApiUrl)
+      .post('/book')
+      .send({
+        name: testBooks.book1.name,
+        author: '',
+        description: testBooks.book1.description,
+      })
+      .set('Accept', 'application/json');
+    expect(result.statusCode).toEqual(400);
+    expect(result.body)
+      .toEqual({ Error: 'Valid Author of Book required.' });
+  });
+
   it('Create new book with invalid type for name', async () => {
     const result = await request(baseApiUrl)
       .post('/book')
