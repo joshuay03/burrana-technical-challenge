@@ -14,11 +14,6 @@ class App {
   constructor() {
     this.express = express();
     this.configureApp();
-    // Register created express server in routing-controllers
-    useExpressServer(this.express, {
-      cors: true,
-      controllers: [`${__dirname}/controllers/*.ts`],
-    });
     this.startApp();
   }
 
@@ -28,6 +23,11 @@ class App {
   private configureApp(): void {
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
+    // Register created express server in routing-controllers
+    useExpressServer(this.express, {
+      cors: true,
+      controllers: [`${__dirname}/controllers/*.ts`],
+    });
   }
 
   /**
@@ -39,7 +39,7 @@ class App {
     console.log('Creating DB instance...');
     const mongoServer = await MongoMemoryServer.create();
     const uri = await mongoServer.getUri();
-    mongoose
+    await mongoose
       .connect(uri)
       .then(() => {
         console.log('Connected to DB!');
