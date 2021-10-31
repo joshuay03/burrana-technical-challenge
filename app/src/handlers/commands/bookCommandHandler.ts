@@ -24,7 +24,7 @@ class BookCommandHandler {
       result.error = true;
       result.message = `Book with name ${book.name} already exists.`
     } else {
-      Book
+      await Book
         .create({
           timestamp: Date.now(),
           name: book.name,
